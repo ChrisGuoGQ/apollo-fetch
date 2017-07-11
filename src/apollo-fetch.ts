@@ -4,15 +4,15 @@ import {
   ResponseAndOptions,
   AfterwareInterface,
   MiddlewareInterface,
-  FetchOptions,
+  // FetchOptions,
   ApolloFetch,
   ParsedResponse,
   GraphQLRequest,
   FetchError,
 } from './types';
-import 'isomorphic-fetch';
+// import 'isomorphic-fetch';
 
-export function createApolloFetch(params: FetchOptions = {}): ApolloFetch {
+export function createApolloFetch(params): ApolloFetch {
   const {uri, customFetch} = params;
 
   const _uri = uri || '/graphql';
@@ -68,15 +68,16 @@ export function createApolloFetch(params: FetchOptions = {}): ApolloFetch {
   };
 
   const callFetch = ({ request, options }) => {
-    let body;
+    let data;
     try {
-      body = JSON.stringify(request);
+      data = JSON.stringify(request);
     } catch (e) {
       throw new Error(`Network request failed. Payload is not serizable: ${e.message}`);
     }
 
     const opts = {
-      body,
+      url: _uri,
+      data,
       method: 'POST',
       ...options,
       headers: {
@@ -85,7 +86,7 @@ export function createApolloFetch(params: FetchOptions = {}): ApolloFetch {
         ...(options.headers || []),
       },
     };
-    return customFetch ? customFetch(_uri, opts) : fetch(_uri, opts);
+    return customFetch(opts);
   };
 
   const throwHttpError = (response, error) => {

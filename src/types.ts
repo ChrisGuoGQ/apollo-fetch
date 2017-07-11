@@ -35,10 +35,10 @@ export interface ParsedResponse extends Response {
   parsed?: any;
 }
 
-export interface FetchOptions {
-  uri?: string;
-  customFetch?: (request: RequestInfo, init: RequestInit) => Promise<Response>;
-}
+// export interface FetchOptions {
+//   uri?: string;
+//   customFetch?: (request: RequestInfo, init: RequestInit) => Promise<Response>;
+// }
 
 export interface FetchError extends Error {
   response: ParsedResponse;
