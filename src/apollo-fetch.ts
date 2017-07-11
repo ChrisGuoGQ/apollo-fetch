@@ -4,7 +4,7 @@ import {
   ResponseAndOptions,
   AfterwareInterface,
   MiddlewareInterface,
-  // FetchOptions,
+  FetchOptions,
   ApolloFetch,
   ParsedResponse,
   GraphQLRequest,
@@ -12,7 +12,7 @@ import {
 } from './types';
 // import 'isomorphic-fetch';
 
-export function createApolloFetch(params): ApolloFetch {
+export function createApolloFetch(params: FetchOptions = {}): ApolloFetch {
   const {uri, customFetch} = params;
 
   const _uri = uri || '/graphql';
